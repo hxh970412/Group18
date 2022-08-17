@@ -8,10 +8,10 @@ test_tournament_size = 3
 elitism_num = 2
 
 print("tournament_selection: ")
-tournament_s = tournament_selection(test_pops, test_fits, test_tournament_size)
+tournament_s = tournament_selection()
 for i in range(0, 10):
 
-    offspring_pops, offspring_fits = tournament_s.tournament_selection()
+    offspring_pops, offspring_fits = tournament_s.tournament_selection(test_pops, test_fits, test_tournament_size)
     print(f"The {i} time: ", offspring_pops, offspring_fits)
     eli = elitism(test_pops, test_fits, offspring_pops, offspring_fits, elitism_num)
     print(f"The {i} time elitism: ", eli.elitism())
