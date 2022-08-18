@@ -11,7 +11,7 @@ class elitism:
         self.offpsring_fits = offpsring_fits
         self.elitism_num = elitism_num
 
-    def elitism(self):
+    def elitism(self): # the elitism selection
         parents = self.parents
         parent_fits = self.parent_fits
         offspring = self.offspring
