@@ -13,7 +13,7 @@ from fitness_proportional import *
 class EA_1:
     def __init__(self) -> None:
         pass
-    def main(self):
+    def main(self): # the main function to run each tsp, population size and generations
         tspList = ['EIL51.tsp', 'EIL76.tsp', 'EIL101.tsp', 'ST70.tsp', 'KROA100.tsp', 'KROC100.tsp', 'LIN105.tsp', 'PCB442.tsp', 'PR2392.tsp', 'USA13509.tsp']
         popsizeList = [10, 20, 50, 100]
         generations = [5000, 10000, 20000]
@@ -22,7 +22,7 @@ class EA_1:
                 for generation in generations:
                     EA_1.runEA("Exercise_6\dataset\\" + item, size, generation)
 
-    def runEA(self,tspName, popSize, generations):
+    def runEA(self,tspName, popSize, generations): # The EA running function
         data = read_tsp.get_data(tspName)
         matrix = IndividualAndPopulation.makeTheMatrix(data)
         pops = IndividualAndPopulation.makePopulation(data, popSize)
