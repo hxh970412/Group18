@@ -1,4 +1,4 @@
-from two_randint import *
+from functionset.two_randint import *
 
 
 def order_crossover(mum, dad):

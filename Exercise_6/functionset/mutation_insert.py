@@ -1,4 +1,4 @@
-from two_randint import *
+from functionset.two_randint import *
 import numpy as np
 
 def insert_mutation(s):
