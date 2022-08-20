@@ -12,13 +12,14 @@ class EA_3:
         tspList = ['EIL51.tsp', 'EIL76.tsp', 'EIL101.tsp', 'ST70.tsp', 'KROA100.tsp', 'KROC100.tsp', 'LIN105.tsp', 'PCB442.tsp', 'PR2392.tsp', 'USA13509.tsp']
         popsizeList = [10, 20, 50, 100]
         generations = [5000, 10000, 20000]
-        Note=open('Exercise_6\EA3.txt', mode='w')
+        Note=open('EA3.txt', mode='w')
         Note.write("start the EA3 \n")
         for item in tspList:
             for size in popsizeList:
                 for generation in generations:
-                    result = EA_3.runEA(f"Exercise_6\dataset\{item}", size, generation)
-                    Note.write(",".join(str(x) for x in result) + '\n')
+                    Note.write(f"The result is generation: {generation} of popsize: {size} of {item} \n")
+                    result_pop, result_fit = EA_3.runEA(f"dataset\{item}", size, generation)
+                    Note.write(",".join(str(x) for x in result_pop) + '\n' + "The best distance is: " + str(result_fit) + '\n')
         Note.close()
 
     def runEA(tspName, popSize, generations): # The EA running function
@@ -69,7 +70,7 @@ class EA_3:
             best_pop[i] += 1
         #The best travel path
         print(best_pop)
-        return best_pop
+        return best_pop, best_fit
         
 EA_3.main()
         

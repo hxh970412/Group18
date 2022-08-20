@@ -1,1 +1,2 @@
 start the EA1 
+The result is generation: 5000 of popsize: 10 of EIL51.tsp 
