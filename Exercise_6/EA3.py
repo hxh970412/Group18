@@ -42,7 +42,7 @@ class EA_3:
 
             # cycle crossover
             for i in range(popSize):
-                child[i] = order_crossover(child_pop1, child_pop2)
+                child[i] = order_crossover(child_pop1[i], child_pop2[i])
 
                 # mutation
                 child[i] = scramble_mutation(child[i])

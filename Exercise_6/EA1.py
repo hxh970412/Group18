@@ -35,15 +35,20 @@ class EA_1:
         best_fit_list = [best_fit]
         generation = 0
         while generation < generations:
-            fit_selection = fitness_proportional(pops, fitness)
-            # selection using fitness
-            child_pop1, child_fits1 = fit_selection.fitness_proportional()
-            child_pop2, child_fits2 = fit_selection.fitness_proportional()
+            child1 = [None]*popSize
+            child2 = [None]*popSize
+            child_fit1 = [None]*popSize
+            child_fit2 = [None]*popSize
+            for i in range(popSize):
+                fit_selection = fitness_proportional(pops, fitness)
+                # selection using fitness
+                child1[i], child_fit1[i] = fit_selection.fitness_proportional()
+                child2[i], child_fit2[i] = fit_selection.fitness_proportional()
             child = [None] * popSize
 
             # cycle crossover
             for i in range(popSize):
-                child[i] = pmx_crossover(child_pop1, child_pop2)
+                child[i] = pmx_crossover(child1[i], child2[i])
 
                 # mutation
                 child[i] = insert_mutation(child[i])
