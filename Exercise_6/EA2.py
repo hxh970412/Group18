@@ -1,34 +1,27 @@
-from ast import main
-import sys
-sys.path.append("Exercise_2")
-sys.path.append("Exercise_3")
-sys.path.append("Exercise_4")
-sys.path.append("Exercise_5")
+from functionset.read_tsp import *
+from functionset.IndividualAndPopulation import *
+from functionset.PMX_Crossover import *
+from functionset.mutation_inversion import *
+from functionset.fitness_proportional import *
+from functionset.elitism import *
 
-from read_tsp import *
-from IndividualAndPopulation import *
-from Order_crossover import *
-from mutation_inversion import *
-from tournament_selection import *
-from elitism import *
 
 class EA_2:
     '''This class will use fitness selection, cycle crossover and mutation insert'''
-    def __init__(self) -> None:
-        pass
-    def main(self): # the main function to run each tsp, population size and generations
+    def main(): # the main function to run each tsp, population size and generations
         tspList = ['EIL51.tsp', 'EIL76.tsp', 'EIL101.tsp', 'ST70.tsp', 'KROA100.tsp', 'KROC100.tsp', 'LIN105.tsp', 'PCB442.tsp', 'PR2392.tsp', 'USA13509.tsp']
         popsizeList = [10, 20, 50, 100]
         generations = [5000, 10000, 20000]
-        Note=open('EA2.txt',mode='w')
+        Note=open('Exercise_6\EA2.txt', mode='w')
+        Note.write("start the EA2 \n")
         for item in tspList:
             for size in popsizeList:
                 for generation in generations:
-                    result = EA_2.runEA("Exercise_6\dataset\\" + item, size, generation)
-                    Note.write(result)
+                    result = EA_2.runEA(f"Exercise_6\dataset\{item}", size, generation)
+                    Note.write(",".join(str(x) for x in result) + '\n')
         Note.close()
 
-    def runEA(self,tspName, popSize, generations): # The EA running function
+    def runEA(tspName, popSize, generations): # The EA running function
         data = read_tsp.get_data(tspName)
         matrix = IndividualAndPopulation.makeTheMatrix(data)
         pops = IndividualAndPopulation.makePopulation(data, popSize)
@@ -36,33 +29,32 @@ class EA_2:
         for item in pops:
             fitness.append(IndividualAndPopulation.calIndDist(item, matrix))
 
-        best_fits = max(fitness)
-        best_pop = pops[fitness.index(best_fits)]
+        best_fit = max(fitness)
+        best_pop = pops[fitness.index(best_fit)]
 
         best_fit_list = [best_fit]
         generation = 0
         while generation < generations:
-            tournament = tournament_selection(pops, fitness, popSize / 10, popSize)
+            fit_selection = fitness_proportional(pops, fitness)
             # selection using fitness
-            child_pop1, child_fits1 = tournament_selection.tournament_selection()
-            child_pop2, child_fits2 = tournament_selection.tournament_selection()
-            child = []
+            child_pop1, child_fits1 = fit_selection.fitness_proportional()
+            child_pop2, child_fits2 = fit_selection.fitness_proportional()
+            child = [None] * popSize
+
             # cycle crossover
             for i in range(popSize):
-                child.append(order_crossover(child_pop1[i], child_pop2[i]))
-            # mutation
-            child = inversion_mutation(child)
+                child[i] = pmx_crossover(child_pop1, child_pop2)
+
+                # mutation
+                child[i] = inversion_mutation(child[i])
             #calculate child distance and fits
-            child_distance = []
             child_fits = []
             for item in child:
                 dis = IndividualAndPopulation.calIndDist(item, matrix)
-                child_distance.append(dis)
-                child_fits.append(1 / dis)
+                child_fits.append(dis)
             #elitism
-            for i in range(popSize):
-                elitism_select = elitism(pops[i], fitness[i], child[i], child_fits[i], len(pops[i]) / 10)
-                pops[i], fitness[i] = elitism_select.elitism()
+            elitism_select = elitism(pops, fitness, child, child_fits, len(pops)//5)
+            pops, fitness = elitism_select.elitism()
 
             if best_fit > min(fitness):
                 best_fit = min(fitness)
@@ -73,11 +65,14 @@ class EA_2:
             print('The %d times is the best one: %.1f' % (generation, best_fit))
             generation+=1
 
+        #becuase during EA the id of city is start 0 so make it to 1
+        for i in range(len(best_pop)):
+            best_pop[i] += 1
         #The best travel path
         print(best_pop)
         return best_pop
         
-main()
+EA_2.main()
         
 
 

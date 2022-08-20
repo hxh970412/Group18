@@ -21,7 +21,9 @@ Exercise 5
 How to test:
 cmd: python ../Exercise 5/test.py
 Exercise 6
+EA1 (use fitness proportional selection, PMX_Crossover, mutation_insert)： python ../Exercise 6/EA1.py 
+EA2 (use PMX_Crossover, mutation_inversion, fitness_proportional)： python ../Exercise 6/EA2.py 
+EA3 (use Order_crossover, mutation_swap, tournament_selection)： python ../Exercise 6/EA3.py 
 Exercise 7
 
-Run the whole EA:
-cmd: python main.py
+

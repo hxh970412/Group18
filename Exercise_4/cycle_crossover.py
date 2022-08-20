@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 
 def cycle_crossover(mum, dad): # cycle corssover function
@@ -7,8 +8,8 @@ def cycle_crossover(mum, dad): # cycle corssover function
     child1 = np.array([-1] * size)
     child2 = np.array([-1] * size)
 
-    p1_copy = mum
-    p2_copy = dad
+    p1_copy = copy.deepcopy(mum)
+    p2_copy = copy.deepcopy(dad)
     swap = True
     count = 0
     pos = 0
@@ -25,16 +26,17 @@ def cycle_crossover(mum, dad): # cycle corssover function
             while True:
                 child1[pos] = mum[pos]
                 count += 1
-                pos = dad[(mum[pos])]
+                pos = dad.tolist().index(mum[pos])
                 if p1_copy[pos] == -1:
                     swap = False
                     break
+
                 p1_copy[pos] = -1
         else:
             while True:
                 child1[pos] = dad[pos]
                 count += 1
-                pos = mum.index(dad[pos])
+                pos = mum.tolist().index(dad[pos])
                 if p2_copy[pos] == -1:
                     swap = True
                     break
@@ -53,4 +55,4 @@ def cycle_crossover(mum, dad): # cycle corssover function
                 else:
                     child1[i] = mum[i]
 
-    return child1
+    return child1, child2

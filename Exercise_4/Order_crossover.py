@@ -48,4 +48,4 @@ def order_crossover(mum, dad):
 
         i += 1
 
-    return child1
+    return child1, child2

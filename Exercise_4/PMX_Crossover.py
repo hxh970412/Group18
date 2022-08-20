@@ -44,4 +44,4 @@ def pmx_crossover(mum, dad):
         elif j in left_2:
             left_2[np.argwhere(left_2 == j)[0, 0]] = i
     alice[r_left], bob[r_left] = left_1, left_2
-    return alice
+    return alice, bob

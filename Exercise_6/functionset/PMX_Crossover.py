@@ -6,6 +6,8 @@ import copy
 def pmx_crossover(mum, dad):
     alice = copy.deepcopy(mum)
     bob = copy.deepcopy(dad)
+    alice = np.array(alice)
+    bob = np.array(bob)
     r_a_b = None
     size = len(mum)
     a, b = two_randint(size)
@@ -13,6 +15,7 @@ def pmx_crossover(mum, dad):
     if r_a_b is None:
         r_a_b = range(a, b)
     r_left = np.delete(range(size), r_a_b)
+    #print(r_left)
     left_1, left_2 = alice[r_left], bob[r_left]
     middle_1, middle_2 = alice[r_a_b], bob[r_a_b]
     alice[r_a_b], bob[r_a_b] = middle_2, middle_1

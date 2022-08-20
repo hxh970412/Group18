@@ -18,7 +18,7 @@ class elitism:
         elitism_num = self.elitism_num
         new_offspring = self.offspring
         new_offspring_fits = self.offpsring_fits
-        
+        #print (self.parent_fits)
         parent_fits_copy = sorted(self.parent_fits)
         
         offspring_fits = sorted(self.offpsring_fits)

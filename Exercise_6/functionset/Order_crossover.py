@@ -1,4 +1,5 @@
 from functionset.two_randint import *
+import numpy
 
 
 def order_crossover(mum, dad):
@@ -33,7 +34,8 @@ def order_crossover(mum, dad):
             dad_trait = dad[current_dad_position]
             while dad_trait in alice_inherited:
                 current_dad_position += 1
-                dad_trait = dad[current_dad_position]
+                if current_dad_position < size:
+                    dad_trait = dad[current_dad_position]
             child1[i] = dad_trait
             alice_inherited.append(dad_trait)
 
@@ -42,10 +44,11 @@ def order_crossover(mum, dad):
             mum_trait = mum[current_mum_position]
             while mum_trait in bob_inherited:
                 current_mum_position += 1
-                mum_trait = mum[current_mum_position]
+                if current_mum_position < size:
+                    mum_trait = mum[current_mum_position]
             child2[i] = mum_trait
             bob_inherited.append(mum_trait)
 
         i += 1
-
+    child1 = numpy.array(child1)
     return child1
