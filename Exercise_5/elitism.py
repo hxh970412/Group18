@@ -18,13 +18,13 @@ class elitism:
         elitism_num = self.elitism_num
         new_offspring = self.offspring
         new_offspring_fits = self.offpsring_fits
-        
+        #print (self.parent_fits)
         parent_fits_copy = sorted(self.parent_fits)
         
         offspring_fits = sorted(self.offpsring_fits)
         
         for i in range (elitism_num):
-            new_offspring[new_offspring_fits.index(offspring_fits[i])] = parents[parent_fits.index(parent_fits_copy[len(parent_fits_copy) - i - 1])]
-            new_offspring_fits[new_offspring_fits.index(offspring_fits[i])] = parent_fits_copy[len(parent_fits_copy) - i - 1]
+            new_offspring[new_offspring_fits.index(offspring_fits[len(offspring_fits) - 1 - i])] = parents[parent_fits.index(parent_fits_copy[i])]
+            new_offspring_fits[new_offspring_fits.index(offspring_fits[len(offspring_fits) - 1 - i])] = parent_fits_copy[i]
 
         return new_offspring, new_offspring_fits

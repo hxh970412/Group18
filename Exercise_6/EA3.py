@@ -17,8 +17,8 @@ class EA_3:
         for item in tspList:
             for size in popsizeList:
                 for generation in generations:
-                    Note.write(f"The result is generation: {generation} of popsize: {size} of {item} \n")
-                    result_pop, result_fit = EA_3.runEA(f"dataset\{item}", size, generation)
+                    result_pop, result_fit, result_generation = EA_3.runEA(f"dataset\{item}", size, generation)
+                    Note.write(f"The result is generation: {generation} of popsize: {size} of {item} is {result_generation} \n")
                     Note.write(",".join(str(x) for x in result_pop) + '\n' + "The best distance is: " + str(result_fit) + '\n')
         Note.close()
 
@@ -30,11 +30,11 @@ class EA_3:
         for item in pops:
             fitness.append(IndividualAndPopulation.calIndDist(item, matrix))
 
-        best_fit = max(fitness)
+        best_fit = min(fitness)
         best_pop = pops[fitness.index(best_fit)]
 
-        best_fit_list = [best_fit]
         generation = 0
+        best_generation = 0
         while generation < generations:
             # selection using fitness
             child_pop1, child_fits1 = tournament_selection.tournament_selection(pops, fitness, popSize //5, popSize)
@@ -59,10 +59,9 @@ class EA_3:
             if best_fit > min(fitness):
                 best_fit = min(fitness)
                 best_pop = pops[fitness.index(best_fit)]
+                best_generation = generation
         
-            best_fit_list.append(best_fit)
-        
-            print('The %d times is the best one: %.1f' % (generation, best_fit))
+            print('The %d times is the best one: %.1f' % (best_generation, best_fit))
             generation+=1
 
         #becuase during EA the id of city is start 0 so make it to 1
@@ -70,7 +69,7 @@ class EA_3:
             best_pop[i] += 1
         #The best travel path
         print(best_pop)
-        return best_pop, best_fit
+        return best_pop, best_fit, best_generation
         
 EA_3.main()
         
