@@ -24,6 +24,7 @@ Exercise 6
 EA1 (use fitness proportional selection, PMX_Crossover, mutation_insert)： python ../Exercise 6/EA1.py 
 EA2 (use PMX_Crossover, mutation_inversion, fitness_proportional)： python ../Exercise 6/EA2.py 
 EA3 (use Order_crossover, mutation_swap, tournament_selection)： python ../Exercise 6/EA3.py 
+report file (use mutation and select to operate，the advantage of mutation is that it can track where use the mutation way， and it is generally hard to report errors. The parameters of the select method are the current population population and the corresponding function fitness, and population needs to be a GAPopulation object, and fitness must also be a callable object; and choose people size list are 10, 20, 50, 100, and generations are 50, 100, 200, they are run about half an hour)
 Exercise 7
 
 
